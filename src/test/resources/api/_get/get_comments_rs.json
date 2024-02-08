@@ -1,0 +1,11 @@
+[
+  <#list data as comment>
+  {
+    "postId": ${comment.postId},
+    "id": "type:Integer",
+    "name": "type:String",
+    "email": "type:String",
+    "body": "type:String"
+  },
+  </#list>
+]

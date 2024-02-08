@@ -1,0 +1,6 @@
+{
+  "userId": "type:Integer",
+  "id": ${id},
+  "title": "${newTitle}",
+  "body": "type:String"
+}
