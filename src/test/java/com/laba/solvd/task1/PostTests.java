@@ -1,40 +1,38 @@
-package com.laba.solvd.api;
+package com.laba.solvd.task1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laba.solvd.api.domain.Comment;
-import com.laba.solvd.api.domain.Post;
-import com.laba.solvd.api.request.*;
+import com.laba.solvd.task1.api.*;
+import com.laba.solvd.task1.domain.Comment;
+import com.laba.solvd.task1.domain.Post;
 import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
 
-public class PostTest {
+public class PostTests {
+    private static final Logger LOGGER = Logger.getLogger(PostTests.class);
+
     @Test
     public void verifyGetPostByIdTest() {
         long id = 1;
 
-        Post post = new Post();
-        post.setId(id);
-        post.setTitle("sunt aut facere repellat provident occaecati excepturi optio reprehenderit");
-        post.setBody("quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto");
-
-        GetPostById getPostById = new GetPostById(id);
-        getPostById.addProperty("post", post);
-        getPostById.callAPI();
+        GetPostByIdMethod getPostById = new GetPostByIdMethod(id);
+        getPostById.addProperty("postId", id);
+        getPostById.callAPIExpectSuccess();
         getPostById.validateResponse();
     }
 
     @Test
-    public void verifyGetCommentsByPostId() {
+    public void verifyGetCommentsByPostIdTest() {
         long id = 1;
         Comment comment = new Comment();
         comment.setPostId(id);
         Comment[] data = new Comment[5];
 
-        GetCommentsByPostId getCommentsByPostId = new GetCommentsByPostId(1);
+        GetCommentsByPostIdMethod getCommentsByPostId = new GetCommentsByPostIdMethod(1);
         getCommentsByPostId.addProperty("comment", comment);
         getCommentsByPostId.addProperty("data", data);
-        getCommentsByPostId.callAPI();
+        getCommentsByPostId.callAPIExpectSuccess();
         getCommentsByPostId.validateResponse();
     }
 
@@ -44,26 +42,26 @@ public class PostTest {
         post.setTitle("some title");
         post.setBody("some body");
 
-        CreatePost createPost = new CreatePost();
+        CreatePostMethod createPost = new CreatePostMethod();
         createPost.addProperty("post", post);
         createPost.addProperty("userId", 1);
-        createPost.callAPI();
+        createPost.callAPIExpectSuccess();
         createPost.validateResponse();
     }
 
     @Test
-    public void verifyUpdatePostTitleById() {
+    public void verifyUpdatePostTitleByIdTest() {
         long id = 1;
 
-        UpdatePostTitleById updatePostTitleById = new UpdatePostTitleById(id);
+        UpdatePostTitleByIdMethod updatePostTitleById = new UpdatePostTitleByIdMethod(id);
         updatePostTitleById.addProperty("newTitle", "new title");
         updatePostTitleById.addProperty("id", id);
-        updatePostTitleById.callAPI();
+        updatePostTitleById.callAPIExpectSuccess();
         updatePostTitleById.validateResponse();
     }
 
     @Test
-    public void verifyUpdatePostById() {
+    public void verifyUpdatePostByIdTest() {
         long id = 1;
         long userId = 2;
 
@@ -72,33 +70,33 @@ public class PostTest {
         post.setTitle("one new title");
         post.setBody("new body");
 
-        UpdatePostById updatePostById = new UpdatePostById(id);
+        UpdatePostByIdMethod updatePostById = new UpdatePostByIdMethod(id);
         updatePostById.addProperty("post", post);
         updatePostById.addProperty("userId", userId);
-        updatePostById.callAPI();
+        updatePostById.callAPIExpectSuccess();
         updatePostById.validateResponse();
     }
 
     @Test
-    public void verifyDeletePostById() {
+    public void verifyDeletePostByIdTest() {
         long id = 1;
-        DeletePostById deletePostById = new DeletePostById(id);
-        deletePostById.callAPI();
+        DeletePostByIdMethod deletePostById = new DeletePostByIdMethod(id);
+        deletePostById.callAPIExpectSuccess();
     }
 
     @Test
-    public void getPostTitleByPostId() {
+    public void getPostTitleByPostIdTest() {
         long id = 1;
-        GetPostById getPostById = new GetPostById(id);
+        GetPostByIdMethod getPostById = new GetPostByIdMethod(id);
         String getPostByIdResponse = getPostById.callAPIExpectSuccess().asString();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonNode = objectMapper.readTree(getPostByIdResponse);
             if (jsonNode.has("title")) {
                 String titleValue = jsonNode.get("title").asText();
-                System.out.println(String.format("Title of the post %d is: " + titleValue, id));
+                LOGGER.info(String.format("Title of the post %d is: " + titleValue, id));
             } else {
-                System.out.println("Title not found");
+                LOGGER.warn("Title not found");
             }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
