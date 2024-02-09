@@ -1,6 +1,6 @@
 {
   "userId": "type:Integer",
-  "id": ${post.id},
-  "title": "${post.title}",
-  "body": "${post.body}"
+  "id": ${postId},
+  "title": "type:String",
+  "body": "type:String"
 }

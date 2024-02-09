@@ -1,4 +1,4 @@
-package com.laba.solvd.api.domain;
+package com.laba.solvd.task1.domain;
 
 public class Post {
     private long id;
