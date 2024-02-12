@@ -7,11 +7,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductCard extends AbstractUIObject {
-    @FindBy(xpath=".//*[@class='goods-tile__heading']")
+    @FindBy(xpath = ".//*[@class='goods-tile__heading']")
     private ExtendedWebElement goodTitleButton;
+
     public ProductCard(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
+
     public String getGoodTitle() {
         return goodTitleButton.getAttribute("title");
     }

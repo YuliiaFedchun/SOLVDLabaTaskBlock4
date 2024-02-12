@@ -6,12 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class BasePage extends AbstractPage {
-    @FindBy(xpath="//*[@class='header']")
+    @FindBy(xpath = "//*[@class='header']")
     private Header header;
 
     public BasePage(WebDriver driver) {
         super(driver);
     }
+
     public Header getHeader() {
         return header;
     }

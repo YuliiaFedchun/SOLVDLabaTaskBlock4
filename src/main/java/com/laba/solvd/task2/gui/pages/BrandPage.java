@@ -6,13 +6,15 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class BrandPage extends ResultSearchPage{
-    @FindBy(xpath="//*[@class='catalog-grid ng-star-inserted']")
+public class BrandPage extends ResultSearchPage {
+    @FindBy(xpath = "//*[@class='catalog-grid ng-star-inserted']")
     private List<ProductCard> productCards;
+
     public BrandPage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(searchResultTitle);
     }
+
     public List<ProductCard> getProductCards() {
         return productCards;
     }

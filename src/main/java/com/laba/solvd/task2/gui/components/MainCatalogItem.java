@@ -8,17 +8,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class MainCatalogItem extends AbstractUIObject {
-    @FindBy(xpath=".//*[@class='main-categories__icon']")
+    @FindBy(xpath = ".//*[@class='main-categories__icon']")
     private ExtendedWebElement catalogItemIcon;
-    @FindBy(xpath=".//*[contains(@class, 'main-categories__link')]")
+    @FindBy(xpath = ".//*[contains(@class, 'main-categories__link')]")
     private ExtendedWebElement catalogItemButton;
+
     public MainCatalogItem(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
+
     public CatalogItemPage openCatalogItemPage() {
         catalogItemButton.click();
         return new CatalogItemPage(getDriver());
     }
+
     public String getCatalogItemName() {
         return catalogItemButton.getText();
     }
