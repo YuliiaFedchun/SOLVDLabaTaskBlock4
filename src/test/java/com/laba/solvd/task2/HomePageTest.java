@@ -1,14 +1,12 @@
 package com.laba.solvd.task2;
 
-import com.laba.solvd.task2.gui.components.MainCatalogItem;
-import com.laba.solvd.task2.gui.pages.CatalogItemPage;
-import com.laba.solvd.task2.gui.pages.HomePage;
+import com.laba.solvd.task2.pages.CatalogItemPage;
+import com.laba.solvd.task2.pages.HomePage;
 import com.zebrunner.carina.core.AbstractTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import java.util.List;
 import java.util.Random;
 
 public class HomePageTest extends AbstractTest {
@@ -19,18 +17,16 @@ public class HomePageTest extends AbstractTest {
         //open home page
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened.");
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
 
         //choose any catalog item and open item's page
-        List<MainCatalogItem> catalogItems = homePage.getCatalogItems();
-        int catalogItemNumber = new Random().nextInt(catalogItems.size());
-        //String catalogItemName = catalogItems.get(catalogItemNumber).getCatalogItemName();
-        CatalogItemPage catalogItemPage = catalogItems.get(catalogItemNumber).openCatalogItemPage();
-        Assert.assertTrue(catalogItemPage.isPageOpened(), "Catalog item's page is not opened");
-        //Assert.assertEquals(catalogItemPage.getItemName(),catalogItemName);
+        int catalogItemNumber = new Random().nextInt(homePage.getCatalogItems().size());
+        CatalogItemPage catalogItemPage = homePage.openCatalogItemPage(catalogItemNumber);
+        LOGGER.info(String.format("Page of the '%s' category is opened", catalogItemPage.getItemName()));
+        Assert.assertTrue(catalogItemPage.isPageOpened(), "Catalog item's page is not opened!");
 
         //return to the home page clicking on the logo on the header
         catalogItemPage.getHeader().openHomePage();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened.");
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
     }
 }

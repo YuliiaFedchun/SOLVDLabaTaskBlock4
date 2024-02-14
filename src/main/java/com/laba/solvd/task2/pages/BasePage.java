@@ -1,19 +1,19 @@
-package com.laba.solvd.task2.gui.pages;
+package com.laba.solvd.task2.pages;
 
-import com.laba.solvd.task2.gui.components.Header;
+import com.laba.solvd.task2.components.HeaderComponent;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class BasePage extends AbstractPage {
     @FindBy(xpath = "//*[@class='header']")
-    private Header header;
+    private HeaderComponent header;
 
     public BasePage(WebDriver driver) {
         super(driver);
     }
 
-    public Header getHeader() {
+    public HeaderComponent getHeader() {
         return header;
     }
 }

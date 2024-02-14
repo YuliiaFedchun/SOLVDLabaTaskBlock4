@@ -1,15 +1,13 @@
 package com.laba.solvd.task2;
 
-import com.laba.solvd.task2.gui.components.PromoCard;
-import com.laba.solvd.task2.gui.pages.AllPromoPage;
-import com.laba.solvd.task2.gui.pages.HomePage;
-import com.laba.solvd.task2.gui.pages.PromoPage;
+import com.laba.solvd.task2.pages.AllPromoPage;
+import com.laba.solvd.task2.pages.HomePage;
+import com.laba.solvd.task2.pages.PromoPage;
 import com.zebrunner.carina.core.AbstractTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import java.util.List;
 import java.util.Random;
 
 public class PromoPageTest extends AbstractTest {
@@ -20,20 +18,16 @@ public class PromoPageTest extends AbstractTest {
         //open home page
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened.");
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
 
         //open page with all promos
         AllPromoPage allPromoPage = homePage.openPromoPage();
-        Assert.assertTrue(allPromoPage.isPageOpened(), "All promo page is not opened.");
+        Assert.assertTrue(allPromoPage.isPageOpened(), "All promo page is not opened!");
 
         //open any promo page and check that it's correct
-        List<PromoCard> promoCards = allPromoPage.getPromoCards();
-        int promoCardNumber = new Random().nextInt(promoCards.size());
-        PromoCard promoCard = promoCards.get(promoCardNumber);
-        LOGGER.info(promoCard.getPromoName());
-        PromoPage promoPage = promoCard.openPromoPage();
-        Assert.assertTrue(promoPage.isPageOpened(), "Promo page is not opened.");
-        //Assert.assertEquals(promoPage.getPromoName(),promoCard.getPromoName());
-        LOGGER.info(promoPage.getPromoName());
+        int promoCardNumber = new Random().nextInt(allPromoPage.getPromoCards().size());
+        PromoPage promoPage = allPromoPage.openPromoPage(promoCardNumber);
+        Assert.assertTrue(promoPage.isPageOpened(), "Promo page is not opened!");
+        LOGGER.info(String.format("The page of the promo '%s' is opened", promoPage.getPromoName()));
     }
 }

@@ -1,4 +1,4 @@
-package com.laba.solvd.task2.gui.pages;
+package com.laba.solvd.task2.pages;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
