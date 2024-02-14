@@ -9,7 +9,8 @@ import java.util.List;
 public class AllPromoPage extends BasePage {
     @FindBy(xpath = "//*[text()='Акції']")
     private ExtendedWebElement title;
-    @FindBy(xpath = "//*[@class='promo-tile ng-star-inserted']")
+
+    @FindBy(xpath = "//*[contains(@class, 'promo-grid')]//a")
     private List<ExtendedWebElement> promoCards;
 
     public AllPromoPage(WebDriver driver) {

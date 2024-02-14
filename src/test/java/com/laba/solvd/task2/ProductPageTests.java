@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 
 public class ProductPageTests extends AbstractTest {
     private static final Logger LOGGER = Logger.getLogger(ProductPageTests.class);
-    private final String CATEGORY_NAME = "Побутова техніка";
-    private final String BRAND_NAME = "Samsung";
+    private static final String CATEGORY_NAME = "Побутова техніка";
+    private static final String BRAND_NAME = "Samsung";
 
     @Test
     public void verifyProductPageOpeningThroughSearchLineTest() {

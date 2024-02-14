@@ -11,16 +11,22 @@ import org.openqa.selenium.support.FindBy;
 public class HeaderComponent extends AbstractUIObject {
     @FindBy(xpath = "//*[@placeholder='Я шукаю...']")
     private ExtendedWebElement searchInputField;
+
     @FindBy(xpath = "//*[contains(text(),'Знайти')]")
     private ExtendedWebElement searchButton;
+
     @FindBy(css = "#fat-menu")
     private ExtendedWebElement catalogButton;
+
     @FindBy(xpath = "//*[@class='header__logo']")
     private ExtendedWebElement logo;
+
     @FindBy(xpath = "//button[@aria-label='Відкрити меню']")
     private ExtendedWebElement menuButton;
+
     @FindBy(xpath = "//*[contains(@class,'side-menu drawer-content')]")
     private SideMenuComponent sideMenu;
+
     @FindBy(xpath = "//ul[contains(@class,'menu-categories')]")
     private CatalogComponent catalog;
 
