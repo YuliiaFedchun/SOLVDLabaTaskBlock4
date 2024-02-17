@@ -12,6 +12,10 @@ public class InfoPage extends AbstractPage {
 
     public InfoPage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(logo);
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return logo.isPresent();
     }
 }

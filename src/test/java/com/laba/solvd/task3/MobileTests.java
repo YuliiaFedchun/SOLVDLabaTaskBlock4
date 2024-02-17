@@ -4,7 +4,8 @@ import com.laba.solvd.task3.pages.*;
 import com.zebrunner.carina.core.AbstractTest;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Random;
@@ -15,11 +16,16 @@ public class MobileTests extends AbstractTest implements IMobileUtils {
 
     private final String searchBrandName = "ikea";
 
-    private final String categoryName = "Краса і здоров'я";
+    private final String categoryName = "Дитячі товари";
 
-    @BeforeTest
+    @BeforeMethod
     public void openApplication() {
         startApp(PACKAGE_NAME);
+    }
+
+    @AfterMethod
+    public void closeApplication() {
+        terminateApp(PACKAGE_NAME);
     }
 
     @Test
@@ -31,7 +37,7 @@ public class MobileTests extends AbstractTest implements IMobileUtils {
         //open category item and check is it correct
         CategoryPage categoryPage = homePage.openCatalogCategory(categoryName);
         Assert.assertTrue(categoryPage.isPageOpened(), "Category page is not opened!");
-        Assert.assertEquals(categoryPage.getCategoryName(), categoryName);
+        Assert.assertEquals(categoryPage.getCategoryName(), categoryName, "Category page is not correct!");
     }
 
     @Test
@@ -76,7 +82,8 @@ public class MobileTests extends AbstractTest implements IMobileUtils {
 
         //choose one of a viewable product card from the VIP block
         //open corresponding product page
-        ProductPage productPage = homePage.openVIPProductPage(new Random().nextInt(3));
+        int productCardNumber = new Random().nextInt(3) + 1;
+        ProductPage productPage = homePage.openVIPProductPage(productCardNumber);
         Assert.assertTrue(productPage.isPageOpened(), "Product page is not opened!");
 
         //click on the return arrow on the header and return to the home page

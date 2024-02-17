@@ -15,8 +15,8 @@ public class HomePage extends AbstractPage implements IMobileUtils {
     @FindBy(xpath = "//*[@resource-id='collectionItemCatalog']")
     private ExtendedWebElement catalogButton;
 
-    @FindBy(xpath = "(//*[@resource-id='catalogBoxItem'])[%d]")
-    private ExtendedWebElement catalogCategoryButton;
+    @FindBy(xpath = "//*[@resource-id='catalogItemText' and @text='%s']")
+    private ExtendedWebElement catalogItemName;
 
     @FindBy(xpath = "//*[@resource-id='add_productTab']")
     private ExtendedWebElement addNewProductButton;
@@ -32,27 +32,28 @@ public class HomePage extends AbstractPage implements IMobileUtils {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(catalogButton);
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return catalogButton.isPresent();
     }
 
     public CategoryPage openCatalogCategory(String categoryName) {
-        String dynamicXpath = String.format("//*[@resource-id='catalogItemText' and @text='%s']", categoryName);
-        if (swipe(findExtendedWebElement(By.xpath(dynamicXpath)), Direction.LEFT)) {
-            findExtendedWebElement(By.xpath(dynamicXpath)).click();
+        LOGGER.info(catalogItemName.format(categoryName).isPresent(3));
+        if (!catalogItemName.format(categoryName).isPresent(3)) {
+            ExtendedWebElement lastCatalogItem = findExtendedWebElement(By.xpath("(//*[@resource-id='catalogBoxItem'])[2]/*"));
+            int startX = lastCatalogItem.getLocation().getX();
+            int y = lastCatalogItem.getLocation().getY();
+            int endX = catalogButton.getLocation().getX();
+            int swipeCount = 0;
+            while (!catalogItemName.format(categoryName).isPresent(3) && (swipeCount < 3)) {
+                swipe(startX, y, endX, y, 1500);
+                swipeCount++;
+            }
         }
+        catalogItemName.format(categoryName).click();
         return new CategoryPage(getDriver());
-    }
-
-    public String getCategoryName(int categoryNumber) {
-        String dynamicXpath = String.format("(//*[@resource-id='catalogBoxItem'])[%d]", categoryNumber);
-        if (categoryNumber > 2) {
-            //swipe(findExtendedWebElement(By.xpath(dynamicXpath)),categoryNumber / 7 + 1);
-            swipe(catalogButton, Direction.LEFT, 3, 5000);
-        }
-        ExtendedWebElement category = findExtendedWebElement(By.xpath(dynamicXpath));
-        return category
-                .findExtendedWebElement(By.xpath("//*[@class='android.widget.TextView']"))
-                .getAttribute("text");
     }
 
     public NewProductPage openAddNewProductForm() {
@@ -61,10 +62,8 @@ public class HomePage extends AbstractPage implements IMobileUtils {
     }
 
     public ProductPage openVIPProductPage(int productCardNumber) {
-        String dynamicXpath = String.format("//android.widget.HorizontalScrollView/*[%d]", productCardNumber);
-        ExtendedWebElement productCard = findExtendedWebElement(By.xpath(dynamicXpath));
-        if (productCard.isPresent()) {
-            productCard.click();
+        if (vipProductCard.format(productCardNumber).isPresent()) {
+            vipProductCard.format(productCardNumber).click();
             return new ProductPage(getDriver());
         } else {
             LOGGER.warn("Product card is not found!");

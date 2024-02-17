@@ -16,11 +16,15 @@ public class ProfilePage extends AbstractPage implements IMobileUtils {
 
     public ProfilePage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(nickNameField);
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return nickNameField.isPresent();
     }
 
     public InfoPage openInfoPage() {
-        swipeUp(4, 15000);
+        swipeUp(4, 1500);
         aboutShafaItem.click();
         return new InfoPage(getDriver());
     }

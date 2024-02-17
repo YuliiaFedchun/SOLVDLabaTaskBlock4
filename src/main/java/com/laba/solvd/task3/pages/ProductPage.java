@@ -7,15 +7,18 @@ import org.openqa.selenium.support.FindBy;
 
 public class ProductPage extends AbstractPage {
 
-    @FindBy(xpath = "//*[contains(@resource-id,'id/productDetailsChatBuyButton')]")
+    @FindBy(xpath = "//*[contains(@resource-id,'productDetailsChatBuyButton')]")
     private ExtendedWebElement buyButton;
 
-    @FindBy(xpath = "//*[contains(@resource-id,'id/toolbar')]/android.widget.ImageButton")
+    @FindBy(xpath = "//*[contains(@resource-id,'toolbar')]/android.widget.ImageButton")
     private ExtendedWebElement returnButton;
 
     public ProductPage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(buyButton);
+    }
+
+    public boolean isPageOpened() {
+        return buyButton.isPresent();
     }
 
     public HomePage returnToHomePage() {

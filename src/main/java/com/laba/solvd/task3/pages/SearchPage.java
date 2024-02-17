@@ -14,7 +14,11 @@ public class SearchPage extends AbstractPage implements IMobileUtils, IAndroidUt
 
     public SearchPage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(searchLine);
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return searchLine.isPresent();
     }
 
     public SearchResultPage searchInfo(String info) {

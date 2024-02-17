@@ -7,10 +7,10 @@ import org.openqa.selenium.support.FindBy;
 
 public class NewProductPage extends AbstractPage {
 
-    @FindBy(xpath = "//*[contains(@resource-id,'id/toolbar')]")
+    @FindBy(xpath = "//*[contains(@resource-id,'toolbar')]")
     private ExtendedWebElement addingProductTitle;
 
-    @FindBy(xpath = "//*[contains(@resource-id,'id/nextStepButton')]")
+    @FindBy(xpath = "//*[contains(@resource-id,'nextStepButton')]")
     private ExtendedWebElement nextStepButton;
 
     @FindBy(xpath = "//*[@text='Назва товару повинна містити як мінімум 3 символи']")
@@ -18,7 +18,11 @@ public class NewProductPage extends AbstractPage {
 
     public NewProductPage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(addingProductTitle);
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return addingProductTitle.isPresent();
     }
 
     public void submitData() {

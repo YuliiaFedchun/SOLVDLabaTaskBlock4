@@ -11,10 +11,14 @@ public class CategoryPage extends AbstractPage {
 
     public CategoryPage(WebDriver driver) {
         super(driver);
-        setUiLoadedMarker(title);
     }
 
     public String getCategoryName() {
         return title.getText();
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return title.isPresent();
     }
 }
