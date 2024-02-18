@@ -27,7 +27,7 @@ public class HomePage extends AbstractPage implements IMobileUtils {
     @FindBy(xpath = "//*[@resource-id='profileTab']")
     private ExtendedWebElement profileButton;
 
-    @FindBy(xpath = "//*[contains(@resource-id,'fragmentContainer')]/androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View[1]/android.view.View[4]")
+    @FindBy(xpath = "//android.widget.ScrollView/preceding-sibling::*/android.view.View[4]")
     private ExtendedWebElement searchButton;
 
     public HomePage(WebDriver driver) {
